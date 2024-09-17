@@ -1,0 +1,46 @@
+﻿@model ArtistsWiki.Models.Models.ViewModels.SolistVM
+
+@{
+    ViewData["Title"] = "Todos os Solistas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data de Estreia</th>
+            <th>Gênero Musical</th>
+            <th>Foto</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var solist in Model.Solists)
+        {
+            <tr>
+                <td>@solist.SolistName</td>
+                <td>@solist.SolistDebutDate</td>
+                <td>@solist.SolistMusicGenre</td>
+                <td>
+                    <img src="@solist.SolistPhoto" alt="Foto de @solist.SolistName" width="100" height="100" />
+                </td>
+                <td>
+                    <!-- Link para detalhes do solista -->
+                    <a href="@Url.Action("Details", "SingerDetails", new { id = solist.SolistId })" class="btn btn-info">Detalhes</a>
+
+                    <!-- Verificar se o solista tem detalhes -->
+                    @if (!Model.HasDetails[solist.SolistId])
+                    {
+                        <!-- Botão para adicionar detalhes se não existirem -->
+                        <a href="@Url.Action("AddNewSingerDetail", "SingerDetails", new { id = solist.SolistId })" class="btn btn-warning">Adicionar Detalhes</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botão para adicionar um novo solista -->
+<a href="@Url.Action("AddNewSolist", "Solists")" class="btn btn-primary">Adicionar Novo Solista</a>

@@ -1,0 +1,34 @@
+﻿@model ArtistsWiki.Models.Models.ViewModels.GroupVM
+
+@{
+    ViewData["Title"] = "Todos os Grupos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome do Grupo</th>
+            <th>Data de Estreia</th>
+            <th>Gênero Musical</th>
+            <th>Foto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model.Groups)
+        {
+            <tr>
+                <td>@group.GroupName</td>
+                <td>@group.GroupDebutDate</td>
+                <td>@group.GroupMusicGenre</td>
+                <td>
+                    <img src="@group.GroupPhoto" alt="Foto de @group.GroupName" width="100" height="100" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Botão para redirecionar ao formulário de adição de novo grupo -->
+<a href="@Url.Action("AddNewGroup", "Groups")" class="btn btn-primary mt-4">Adicionar Novo Grupo</a>

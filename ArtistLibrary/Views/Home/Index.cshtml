@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <!-- Botão para a página de todos os solistas -->
+    <a href="@Url.Action("GetAllSolists", "Solists")" class="btn btn-primary mt-4">Solists</a>
+
+    <!-- Botão para a página de todos os grupos -->
+    <a href="@Url.Action("GetAllGroups", "Groups")" class="btn btn-primary mt-4">Groups</a>
+</div>
