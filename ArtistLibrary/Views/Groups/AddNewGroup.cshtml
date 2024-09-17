@@ -1,39 +1,102 @@
 ﻿@model ArtistsWiki.Models.Models.Group
 
 @{
-    ViewData["Title"] = "Adicionar Novo Grupo";
+    ViewData["Title"] = "Add New Group";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-<form asp-action="AddNewGroup" method="post">
-    <div class="form-group">
-        <label asp-for="GroupName"></label>
-        <input asp-for="GroupName" class="form-control" />
-        <span asp-validation-for="GroupName" class="text-danger"></span>
-    </div>
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 2rem;
+            text-shadow: 1px 1px #ccc;
+            text-align: center;
+        }
 
-    <div class="form-group">
-        <label asp-for="GroupDebutDate"></label>
-        <input asp-for="GroupDebutDate" class="form-control" />
-        <span asp-validation-for="GroupDebutDate" class="text-danger"></span>
-    </div>
+        .form-group {
+            margin-bottom: 1rem;
+        }
 
-    <div class="form-group">
-        <label asp-for="GroupMusicGenre"></label>
-        <input asp-for="GroupMusicGenre" class="form-control" />
-        <span asp-validation-for="GroupMusicGenre" class="text-danger"></span>
-    </div>
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
 
-    <div class="form-group">
-        <label asp-for="GroupPhoto"></label>
-        <input asp-for="GroupPhoto" class="form-control" />
-        <span asp-validation-for="GroupPhoto" class="text-danger"></span>
-    </div>
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-    <button type="submit" class="btn btn-primary">Adicionar Grupo</button>
-</form>
+        .text-danger {
+            color: red;
+        }
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+        .btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            background-color: #ff7e5f;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #ee4466;
+            }
+    </style>
+</head>
+<body>
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="AddNewGroup" method="post">
+        <div class="form-group">
+            <label asp-for="GroupName">Group name: </label>
+            <input asp-for="GroupName" class="form-control" />
+            <span asp-validation-for="GroupName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GroupDebutDate">Group debut date (USE /): </label>
+            <input asp-for="GroupDebutDate" class="form-control" />
+            <span asp-validation-for="GroupDebutDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GroupMusicGenre">Music genre:</label>
+            <input asp-for="GroupMusicGenre" class="form-control" />
+            <span asp-validation-for="GroupMusicGenre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GroupPhoto">Photo (URL):</label>
+            <input asp-for="GroupPhoto" class="form-control" />
+            <span asp-validation-for="GroupPhoto" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn">Add Group</button>
+    </form>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

@@ -1,34 +1,95 @@
 ﻿@model ArtistsWiki.Models.Models.ViewModels.GroupVM
 
 @{
-    ViewData["Title"] = "Todos os Grupos";
+    ViewData["Title"] = "All Groups";
 }
 
-<h2>@ViewData["Title"]</h2>
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nome do Grupo</th>
-            <th>Data de Estreia</th>
-            <th>Gênero Musical</th>
-            <th>Foto</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var group in Model.Groups)
-        {
-            <tr>
-                <td>@group.GroupName</td>
-                <td>@group.GroupDebutDate</td>
-                <td>@group.GroupMusicGenre</td>
-                <td>
-                    <img src="@group.GroupPhoto" alt="Foto de @group.GroupName" width="100" height="100" />
-                </td>
-            </tr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-    </tbody>
-</table>
 
-<!-- Botão para redirecionar ao formulário de adição de novo grupo -->
-<a href="@Url.Action("AddNewGroup", "Groups")" class="btn btn-primary mt-4">Adicionar Novo Grupo</a>
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 2rem;
+            text-shadow: 1px 1px #ccc;
+            text-align: center;
+        }
+
+        .table {
+            width: 100%;
+            margin: 2rem auto;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                padding: 0.75rem;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background-color: #f4f4f4;
+            }
+
+            .table img {
+                border-radius: 10px;
+            }
+
+        .btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            background-color: #ff7e5f;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #ee4466;
+            }
+    </style>
+</head>
+<body>
+    <h2>@ViewData["Title"]</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Debut Date</th>
+                <th>Music Genre</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var group in Model.Groups)
+            {
+                <tr>
+                    <td>@group.GroupName</td>
+                    <td>@group.GroupDebutDate</td>
+                    <td>@group.GroupMusicGenre</td>
+                    <td>
+                        <img src="@group.GroupPhoto" alt="Photo of @group.GroupName" width="100" height="100" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("AddNewGroup", "Groups")" class="btn">Add New Group</a>
+</body>
+</html>
