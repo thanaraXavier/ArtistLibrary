@@ -12,89 +12,93 @@
     <title>@ViewData["Title"]</title>
     <style>
         body {
-            background-color: #f0f8ff;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: #333;
-            margin-top: 2rem;
-            text-shadow: 1px 1px #ccc;
-            text-align: center;
-        }
-
-        .table {
-            width: 100%;
-            margin: 2rem auto;
-            border-collapse: collapse;
-        }
-
-            .table th, .table td {
-                padding: 0.75rem;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .table th {
-                background-color: #f4f4f4;
-            }
-
-            .table img {
-                border-radius: 10px;
-            }
-
-        .btn {
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 20px;
-            background-color: #ff7e5f;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
             color: white;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: background-color 0.3s;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
         }
 
-            .btn:hover {
-                background-color: #ee4466;
+        h1 {
+            font-size: 2.5rem; /* Aumenta o tamanho da fonte */
+            margin-bottom: 60px; /* Aumenta o espaço entre o título e os artistas */
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+
+        .artist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .artist-card {
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            color: inherit;
+        }
+
+            .artist-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .artist-card .info {
+                padding: 10px;
+            }
+
+            .artist-card .name {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .artist-card .debut-date, .artist-card .genre {
+                color: #ccc;
+            }
+
+        .add-btn {
+            display: inline-block;
+            margin-top: 40px; /* Espaço entre o botão e os artistas */
+            padding: 8px 16px;
+            border-radius: 25px;
+            background-color: #333; /* Mesma cor dos cards */
+            color: white; /* Cor do texto do botão */
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+            .add-btn:hover {
+                background-color: #444; /* Cor um pouco mais clara para o efeito de hover */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             }
     </style>
 </head>
 <body>
-    <h2>@ViewData["Title"]</h2>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Solist Name</th>
-                <th>Debut Date</th>
-                <th>Music Genre</th>
-                <th>Photo</th>
-               @*  <th>Actions</th> *@
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var solist in Model.Solists)
-            {
-                <tr>
-                    <td>@solist.SolistName</td>
-                    <td>@solist.SolistDebutDate</td>
-                    <td>@solist.SolistMusicGenre</td>
-                    <td>
-                        <img src="@solist.SolistPhoto" alt="Photo of @solist.SolistName" width="100" height="100" />
-                    </td>
-                   @*  <td>
-                        <a href="@Url.Action("Edit", "Solists", new { id = solist.SolistId })" class="btn">Edit</a>
-                        <a href="@Url.Action("Delete", "Solists", new { id = solist.SolistId })" class="btn">Delete</a>
-                    </td> *@
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <a href="@Url.Action("AddNewSolist", "Solists")" class="btn">Add New Solist</a>
+    <h1>@ViewData["Title"]</h1>
+    <div class="artist-container">
+        @foreach (var solist in Model.Solists)
+        {
+            <div class="artist-card">
+                <img src="@solist.SolistPhoto" alt="Photo of @solist.SolistName" />
+                <div class="info">
+                    <div class="name">@solist.SolistName</div>
+                    <div class="debut-date">Debut date: @solist.SolistDebutDate</div>
+                    <div class="genre">Genre: @solist.SolistMusicGenre</div>
+                </div>
+            </div>
+        }
+    </div>
+    <a href="@Url.Action("AddNewSolist", "Solists")" class="add-btn">Add Solist</a>
 </body>
 </html>
