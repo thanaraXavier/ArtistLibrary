@@ -1,14 +1,90 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Artist Library";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Estilos CSS personalizados -->
+<style>
+    body {
+        background-color: #f0f8ff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
 
+    h1 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-top: 2rem;
+        text-shadow: 1px 1px #ccc;
+        text-align: center;
+    }
+
+    p {
+        font-size: 1rem;
+        color: #666;
+        text-align: center;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        margin: 0.5rem;
+        border-radius: 20px;
+        background-color: #ff7e5f;
+        color: white;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #ee4466;
+        }
+
+    .video-container {
+        margin: 2rem auto;
+        width: 50%;
+        height: 0;
+        padding-bottom: 28%;
+        position: relative;
+    }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+</style>
+
+<!-- Estrutura HTML -->
+<h1 class="display-4">Artist Library</h1>
+<p>Explore solists and groups in the music world.</p>
+
+<div class="button-container">
     <!-- Botão para a página de todos os solistas -->
-    <a href="@Url.Action("GetAllSolists", "Solists")" class="btn btn-primary mt-4">Solists</a>
+    <a href="@Url.Action("GetAllSolists", "Solists")" class="btn">Solists</a>
 
     <!-- Botão para a página de todos os grupos -->
-    <a href="@Url.Action("GetAllGroups", "Groups")" class="btn btn-primary mt-4">Groups</a>
+    <a href="@Url.Action("GetAllGroups", "Groups")" class="btn">Groups</a>
 </div>
+
+<!-- Vídeo centralizado -->
+<div class="video-container">
+    <iframe src="https://www.youtube.com/embed/jCzez_q8si0?autoplay=1&mute=1&loop=1&playlist=jCzez_q8si0"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+</div>
+

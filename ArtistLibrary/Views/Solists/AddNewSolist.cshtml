@@ -1,32 +1,102 @@
 ﻿@model ArtistsWiki.Models.Models.Solist
 
 @{
-    ViewData["Title"] = "Adicionar Novo Solista";
+    ViewData["Title"] = "Add New Solist";
 }
 
-<h2>@ViewData["Title"]</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-<form asp-action="AddNewSolist" method="post">
-    <div class="form-group">
-        <label for="SolistName">Nome do Solista</label>
-        <input asp-for="SolistName" class="form-control" />
-        <span asp-validation-for="SolistName" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="SolistDebutDate">Data de Estreia</label>
-        <input asp-for="SolistDebutDate" class="form-control" />
-        <span asp-validation-for="SolistDebutDate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="SolistMusicGenre">Gênero Musical</label>
-        <input asp-for="SolistMusicGenre" class="form-control" />
-        <span asp-validation-for="SolistMusicGenre" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label for="SolistPhoto">URL da Foto</label>
-        <input asp-for="SolistPhoto" class="form-control" />
-        <span asp-validation-for="SolistPhoto" class="text-danger"></span>
-    </div>
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 2rem;
+            text-shadow: 1px 1px #ccc;
+            text-align: center;
+        }
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-</form>
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            background-color: #ff7e5f;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #ee4466;
+            }
+    </style>
+</head>
+<body>
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="AddNewSolist" method="post">
+        <div class="form-group">
+            <label asp-for="SolistName">Name</label>
+            <input asp-for="SolistName" class="form-control" />
+            <span asp-validation-for="SolistName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SolistDebutDate">Debut date (USE /):</label>
+            <input asp-for="SolistDebutDate" class="form-control" />
+            <span asp-validation-for="SolistDebutDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SolistMusicGenre">Music genre:</label>
+            <input asp-for="SolistMusicGenre" class="form-control" />
+            <span asp-validation-for="SolistMusicGenre" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SolistPhoto">Photo (URL)</label>
+            <input asp-for="SolistPhoto" class="form-control" />
+            <span asp-validation-for="SolistPhoto" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn">Save</button>
+    </form>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>
