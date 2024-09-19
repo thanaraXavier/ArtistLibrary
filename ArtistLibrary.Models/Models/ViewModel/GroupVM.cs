@@ -1,4 +1,4 @@
-﻿namespace ArtistsWiki.Models.Models.ViewModels
+﻿namespace ArtistLibrary.Models.Models.ViewModels
 {
     public class GroupVM
     {

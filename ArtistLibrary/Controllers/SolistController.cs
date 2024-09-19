@@ -1,9 +1,9 @@
-﻿using ArtistsWiki.DataAccess;
-using ArtistsWiki.Models.Models;
-using ArtistsWiki.Models.Models.ViewModels;
+﻿using ArtistLibrary.DataAccess;
+using ArtistLibrary.Models.Models;
+using ArtistLibrary.Models.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ArtistsWiki.Controllers
+namespace ArtistLibrary.Controllers
 {
     public class SolistsController : Controller
     {
