@@ -5,53 +5,59 @@
 <!-- Estilos CSS personalizados -->
 <style>
     body {
-        background-color: #f0f8ff;
-        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
         margin: 0;
-        padding: 0;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        font-family: Arial, sans-serif; /* Fonte consistente para o corpo */
+        color: white;
+        text-align: center;
+        padding: 20px; /* Adiciona um pouco de padding */
     }
 
     h1 {
-        font-size: 2.5rem;
-        color: #333;
-        margin-top: 2rem;
-        text-shadow: 1px 1px #ccc;
-        text-align: center;
-    }
-
-    p {
-        font-size: 1rem;
-        color: #666;
-        text-align: center;
+        font-size: 2.5rem; /* Tamanho da fonte do título */
+        margin-bottom: 25px; /* Espaço aumentado entre o título e os botões */
+        font-family: Georgia, serif; /* Fonte do título */
+        font-weight: bold; /* Fonte gordinha */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .button-container {
         display: flex;
         justify-content: center;
-        margin-top: 1rem;
+        gap: 20px; /* Espaço entre os botões */
+        margin-bottom: 30px; /* Espaço abaixo dos botões */
     }
 
     .btn {
-        font-size: 1rem;
-        padding: 0.5rem 1rem;
-        margin: 0.5rem;
-        border-radius: 20px;
-        background-color: #ff7e5f;
+        background-color: #333;
         color: white;
-        text-transform: uppercase;
+        border: none;
+        padding: 8px 18px; /* Aumenta o padding dos botões */
+        font-size: 1.3rem; /* Aumenta o tamanho da fonte dos botões */
+        font-family: Arial, sans-serif; /* Fonte dos botões */
+        font-weight: normal; /* Fonte padrão */
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         text-decoration: none;
-        transition: background-color 0.3s;
+        outline: none; /* Remove a borda azul ao clicar */
     }
 
         .btn:hover {
-            background-color: #ee4466;
+            background-color: #555;
         }
 
     .video-container {
         margin: 2rem auto;
-        width: 50%;
+        width: 50%; /* Largura do vídeo */
         height: 0;
-        padding-bottom: 28%;
+        padding-bottom: 28%; /* Proporção do vídeo */
         position: relative;
     }
 
@@ -63,12 +69,10 @@
             height: 100%;
             border-radius: 10px;
         }
-
 </style>
 
 <!-- Estrutura HTML -->
-<h1 class="display-4">Artist Library</h1>
-<p>Explore solists and groups in the music world.</p>
+<h1>Artist Library</h1>
 
 <div class="button-container">
     <!-- Botão para a página de todos os solistas -->
