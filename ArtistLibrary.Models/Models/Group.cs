@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ArtistsWiki.Models.Models
+namespace ArtistLibrary.Models.Models
 {
     public class Group
     {

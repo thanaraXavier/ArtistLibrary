@@ -1,8 +1,7 @@
-﻿using ArtistsWiki.Models.Models;
+﻿using ArtistLibrary.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Text.RegularExpressions;
 
-namespace ArtistsWiki.DataAccess
+namespace ArtistLibrary.DataAccess
 {
     public class AppDbContext : DbContext
     {
@@ -11,6 +10,7 @@ namespace ArtistsWiki.DataAccess
         }
 
         public DbSet<Solist> Solists { get; set; }
-        public DbSet<Models.Models.Group> Groups { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Album> Albums { get; set; }
     }
 }

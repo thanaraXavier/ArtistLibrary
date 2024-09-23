@@ -1,12 +1,9 @@
-﻿using ArtistsWiki.DataAccess;
-using ArtistsWiki.Models.Models.ViewModels;
-using ArtistsWiki.Models.Models;
+﻿using ArtistLibrary.DataAccess;
+using ArtistLibrary.Models.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
-using Group = ArtistsWiki.Models.Models.Group;
-using Microsoft.EntityFrameworkCore;
+using Group = ArtistLibrary.Models.Models.Group;
 
-namespace ArtistsWiki.Controllers
+namespace ArtistLibrary.Controllers
 {
     public class GroupsController : Controller
     {
@@ -57,7 +54,7 @@ namespace ArtistsWiki.Controllers
             {
                 _db.Groups.Add(newGroup);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirecionar após adicionar
+                return RedirectToAction("GetAllGroups", "Groups"); // Redirecionar após adicionar
             }
 
             return View(newGroup);

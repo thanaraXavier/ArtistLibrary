@@ -1,9 +1,9 @@
-﻿using ArtistsWiki.DataAccess;
-using ArtistsWiki.Models.Models;
-using ArtistsWiki.Models.Models.ViewModels;
+﻿using ArtistLibrary.DataAccess;
+using ArtistLibrary.Models.Models;
+using ArtistLibrary.Models.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ArtistsWiki.Controllers
+namespace ArtistLibrary.Controllers
 {
     public class SolistsController : Controller
     {
@@ -56,7 +56,7 @@ namespace ArtistsWiki.Controllers
             {
                 _db.Solists.Add(newSolist);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirecionar após adicionar
+                return RedirectToAction("GetAllSolists", "Solists"); // Redirecionar após adicionar
             }
 
             return View(newSolist);

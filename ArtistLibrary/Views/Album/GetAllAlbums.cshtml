@@ -1,0 +1,122 @@
+﻿@model ArtistLibrary.Models.Models.ViewModel.AlbumVM
+
+@{
+    ViewData["Title"] = "Todos os Álbuns";
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-top: 2rem;
+            text-shadow: 1px 1px #ccc;
+            text-align: center;
+        }
+
+        .table {
+            width: 100%;
+            margin: 2rem auto;
+            border-collapse: collapse;
+        }
+
+            .table th, .table td {
+                padding: 0.75rem;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table th {
+                background-color: #f4f4f4;
+            }
+
+            .table img {
+                width: 100px; /* Ajuste o tamanho da imagem conforme necessário */
+                height: auto;
+                border-radius: 10px;
+            }
+
+        .btn {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+            background-color: #ff7e5f;
+            color: white;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #ee4466;
+            }
+
+        .alert {
+            margin: 2rem auto;
+            text-align: center;
+            padding: 1rem;
+            background-color: #e7f3fe;
+            color: #31708f;
+            border: 1px solid #bcdff1;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+    <div class="mb-3 text-center">
+        <a href="@Url.Action("AddNewAlbum", "Album")" class="btn">Adicionar Novo Álbum</a>
+    </div>
+
+    @if (Model.Albums != null && Model.Albums.Any())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome do Álbum</th>
+                    <th>Artista</th>
+                    <th>Imagem do Álbum</th>
+                    <th>Data de Lançamento</th>
+                    <th>Tracklist</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Albums.Count; i++)
+                {
+                    var album = Model.Albums[i];
+                    <tr>
+                        <td>@album.AlbumName</td>
+                        <td>@Model.ArtistNames[i]</td>
+                        <td>
+                            <img src="@album.AlbumCover" alt="Capa do Álbum @album.AlbumName" />
+                        </td>
+                        <td>@album.AlbumRelease.ToShortDateString()</td>
+                        <td>@album.AlbumTracklist</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert">Nenhum álbum encontrado.</div>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ArtistsWiki.Models.Models
+namespace ArtistLibrary.Models.Models
 {
     public class Solist
     {
