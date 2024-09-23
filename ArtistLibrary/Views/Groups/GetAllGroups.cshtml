@@ -20,13 +20,62 @@
             padding: 20px;
         }
 
-        h2 {
-            font-size: 2.5rem; /* Aumenta o tamanho da fonte */
-            margin-bottom: 45px; /* Aumenta o espaço entre o título e os cards */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
             font-family: Georgia, serif;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             font-weight: bold;
         }
+
+        .filter-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #444;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+            position: relative;
+            max-height: 80vh; /* Limitar a altura do modal */
+            overflow-y: auto; /* Permitir rolagem */
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #ff7e5f;
+            }
 
         .group-container {
             display: flex;
@@ -40,14 +89,14 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             overflow: hidden;
-            width: 220px; /* Largura dos cards */
+            width: 200px;
             text-align: center;
             color: inherit;
         }
 
             .group-card img {
                 width: 100%;
-                height: 200px; /* Altura das imagens */
+                height: 200px;
                 object-fit: cover;
             }
 
@@ -60,17 +109,13 @@
                 margin-bottom: 5px;
             }
 
-            .group-card .debut-date, .group-card .genre {
-                color: #ccc;
-            }
-
-        .btn {
+        .add-btn {
             display: inline-block;
-            margin-top: 40px; /* Espaço entre o botão e os cards */
+            margin-top: 40px;
             padding: 8px 16px;
             border-radius: 25px;
-            background-color: #333; /* Cor do botão */
-            color: white; /* Cor do texto do botão */
+            background-color: #333;
+            color: white;
             font-size: 1rem;
             font-weight: bold;
             text-decoration: none;
@@ -78,14 +123,73 @@
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
-            .btn:hover {
-                background-color: #444; /* Cor um pouco mais clara para o efeito de hover */
+            .add-btn:hover {
+                background-color: #444;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             }
+
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+            .filter-form label {
+                margin-bottom: 5px;
+                font-size: 1rem;
+            }
+
+            .filter-form input {
+                padding: 8px;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .filter-form button {
+                padding: 10px 15px;
+                font-size: 1rem;
+                background-color: #ff7e5f;
+                border: none;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .filter-form button:hover {
+                    background-color: #ff6a47;
+                }
     </style>
 </head>
 <body>
-    <h2>@ViewData["Title"]</h2>
+    <h1>@ViewData["Title"]</h1>
+
+    <span class="filter-icon" id="filterIcon">
+        <img src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png" style="width: 30px; height: 30px;" alt="Filter Icon">
+    </span>
+
+
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 style="margin-bottom: 25px;">Type what you want to filter:</h3>
+            <form method="get" asp-action="GetAllGroups" class="filter-form">
+                <input type="text" id="name" name="name" placeholder="Enter group name:" />
+                <input type="text" id="genre" name="genre" placeholder="Enter music genre:" />
+                <input type="text" id="debutDate" name="debutDate" placeholder="dd/mm/aaaa" />
+
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.Groups.Count == 0)
+    {
+        <p>No groups found with the search criteria.</p>
+    }
+
     <div class="group-container">
         @foreach (var group in Model.Groups)
         {
@@ -93,12 +197,32 @@
                 <img src="@group.GroupPhoto" alt="Photo of @group.GroupName" />
                 <div class="info">
                     <div class="name">@group.GroupName</div>
-                    <div class="debut-date">Debut date: @group.GroupDebutDate</div>
+                    <div class="debut-date">Debut Date: @group.GroupDebutDate</div>
                     <div class="genre">Genre: @group.GroupMusicGenre</div>
                 </div>
             </div>
         }
     </div>
-    <a href="@Url.Action("AddNewGroup", "Groups")" class="btn">Add Group</a>
+
+    <a href="@Url.Action("AddNewGroup", "Groups")" class="add-btn">Add Group</a>
+
+    <script>
+        // Open modal
+        document.getElementById('filterIcon').onclick = function () {
+            document.getElementById('filterModal').style.display = 'block';
+        }
+
+        // Close modal
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('filterModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('filterModal')) {
+                document.getElementById('filterModal').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

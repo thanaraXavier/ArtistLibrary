@@ -21,12 +21,63 @@
         }
 
         h1 {
-            font-size: 2.5rem; /* Aumenta o tamanho da fonte */
-            margin-bottom: 60px; /* Aumenta o espaço entre o título e os artistas */
+            font-size: 2.5rem;
+            margin-bottom: 60px;
             font-family: Georgia, serif;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             font-weight: bold;
         }
+
+        .filter-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #444;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #ff7e5f;
+                text-decoration: none;
+                cursor: pointer;
+            }
 
         .artist-container {
             display: flex;
@@ -60,17 +111,18 @@
                 margin-bottom: 5px;
             }
 
-            .artist-card .debut-date, .artist-card .genre {
+            .artist-card .debut-date,
+            .artist-card .genre {
                 color: #ccc;
             }
 
         .add-btn {
             display: inline-block;
-            margin-top: 40px; /* Espaço entre o botão e os artistas */
+            margin-top: 40px;
             padding: 8px 16px;
             border-radius: 25px;
-            background-color: #333; /* Mesma cor dos cards */
-            color: white; /* Cor do texto do botão */
+            background-color: #333;
+            color: white;
             font-size: 1rem;
             font-weight: bold;
             text-decoration: none;
@@ -79,13 +131,73 @@
         }
 
             .add-btn:hover {
-                background-color: #444; /* Cor um pouco mais clara para o efeito de hover */
+                background-color: #444;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             }
+
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+            .filter-form label {
+                margin-bottom: 5px;
+                font-size: 1rem;
+            }
+
+            .filter-form input {
+                padding: 8px;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .filter-form button {
+                padding: 10px 15px;
+                font-size: 1rem;
+                background-color: #ff7e5f;
+                border: none;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .filter-form button:hover {
+                    background-color: #ff6a47;
+                }
     </style>
 </head>
 <body>
     <h1>@ViewData["Title"]</h1>
+
+    <span class="filter-icon" id="filterIcon">
+        <img src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png" style="width: 30px; height: 30px;" alt="Filter Icon">
+    </span>
+
+
+
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 style="margin-bottom: 25px;">Type what you want to filter:</h3> <!-- Espaço adicionado -->
+            <form method="get" asp-action="GetAllSolists" class="filter-form">
+                <input type="text" id="name" name="name" placeholder="Enter solist name:" />
+                <input type="text" id="genre" name="genre" placeholder="Enter music genre:" />
+                <input type="text" id="debutDate" name="debutDate" placeholder="dd/mm/aaaa" />
+
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.Solists.Count == 0)
+    {
+        <p>No solists found with the search criteria.</p>
+    }
+
     <div class="artist-container">
         @foreach (var solist in Model.Solists)
         {
@@ -93,12 +205,32 @@
                 <img src="@solist.SolistPhoto" alt="Photo of @solist.SolistName" />
                 <div class="info">
                     <div class="name">@solist.SolistName</div>
-                    <div class="debut-date">Debut date: @solist.SolistDebutDate</div>
+                    <div class="debut-date">Debut Date: @solist.SolistDebutDate</div>
                     <div class="genre">Genre: @solist.SolistMusicGenre</div>
                 </div>
             </div>
         }
     </div>
+
     <a href="@Url.Action("AddNewSolist", "Solists")" class="add-btn">Add Solist</a>
+
+    <script>
+        // Open the modal
+        document.getElementById('filterIcon').onclick = function () {
+            document.getElementById('filterModal').style.display = 'block';
+        }
+
+        // Close the modal
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('filterModal').style.display = 'none';
+        }
+
+        // Close the modal if clicking outside of it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('filterModal')) {
+                document.getElementById('filterModal').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
