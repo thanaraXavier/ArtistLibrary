@@ -1,0 +1,103 @@
+﻿@model ArtistLibrary.Models.DTOs.AlbumDTO
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Adicionar Novo Álbum</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Adicionar Novo Álbum</h1>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <form asp-action="AddNewAlbum" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="AlbumName" class="form-label">Nome do Álbum</label>
+                <input type="text" class="form-control" id="AlbumName" name="AlbumName" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="AlbumRelease" class="form-label">Data de Lançamento</label>
+                <input type="date" class="form-control" id="AlbumRelease" name="AlbumRelease" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="AlbumTracklist" class="form-label">Tracklist (separe as faixas com vírgulas)</label>
+                <textarea class="form-control" id="AlbumTracklist" name="AlbumTracklist" rows="3" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="AlbumCover" class="form-label">Capa do Álbum (URL)</label>
+                <input type="text" class="form-control" id="AlbumCover" name="AlbumCover" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Escolha o tipo:</label>
+                <div>
+                    <input type="radio" id="solist" name="type" value="solist" checked />
+                    <label for="solist">Solista</label>
+
+                    <input type="radio" id="group" name="type" value="group" />
+                    <label for="group">Grupo</label>
+                </div>
+            </div>
+
+            <div id="solistSection" class="mb-3">
+                <label for="SolistId" class="form-label">Solista</label>
+                <select id="SolistId" name="SolistId" class="form-select">
+                    <option value="">Selecione um solista</option>
+                    @foreach (var solist in ViewBag.Solists)
+                    {
+                        <option value="@solist.SolistId">@solist.SolistName</option> <!-- Ajuste aqui -->
+                    }
+                </select>
+            </div>
+
+            <div id="groupSection" class="mb-3" style="display: none;">
+                <label for="GroupId" class="form-label">Grupo</label>
+                <select id="GroupId" name="GroupId" class="form-select">
+                    <option value="">Selecione um grupo</option>
+                    @foreach (var group in ViewBag.Groups)
+                    {
+                        <option value="@group.GroupId">@group.GroupName</option> <!-- Ajuste aqui -->
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Adicionar Álbum</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('input[name="type"]').change(function () {
+                if ($(this).val() === 'solist') {
+                    $('#solistSection').show();
+                    $('#groupSection').hide();
+                    $('#GroupId').val(''); // Limpa a seleção do grupo
+                } else {
+                    $('#groupSection').show();
+                    $('#solistSection').hide();
+                    $('#SolistId').val(''); // Limpa a seleção do solista
+                }
+            });
+        });
+    </script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

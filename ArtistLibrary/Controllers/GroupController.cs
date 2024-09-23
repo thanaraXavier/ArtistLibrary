@@ -37,7 +37,7 @@ namespace ArtistLibrary.Controllers
             {
                 _db.Groups.Add(newGroup);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirecionar após adicionar
+                return RedirectToAction("GetAllGroups", "Groups"); // Redirecionar após adicionar
             }
 
             return View(newGroup);

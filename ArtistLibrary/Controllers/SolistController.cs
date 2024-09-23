@@ -39,7 +39,7 @@ namespace ArtistLibrary.Controllers
             {
                 _db.Solists.Add(newSolist);
                 _db.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirecionar após adicionar
+                return RedirectToAction("GetAllSolists", "Solists"); // Redirecionar após adicionar
             }
 
             return View(newSolist);
