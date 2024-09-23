@@ -4,6 +4,7 @@ using ArtistsWiki.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 using Group = ArtistsWiki.Models.Models.Group;
+using Microsoft.EntityFrameworkCore;
 
 namespace ArtistsWiki.Controllers
 {
@@ -15,16 +16,33 @@ namespace ArtistsWiki.Controllers
             _db = db;
         }
 
-        [HttpGet]
-        public IActionResult GetAllGroups()
+        public IActionResult GetAllGroups(string name, string genre, string debutDate)
         {
-            var groupVM = new GroupVM()
+            var groups = _db.Groups.AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
             {
-                Groups = _db.Groups.ToList()
+                groups = groups.Where(g => g.GroupName.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                groups = groups.Where(g => g.GroupMusicGenre.Contains(genre));
+            }
+
+            if (!string.IsNullOrEmpty(debutDate))
+            {
+                groups = groups.Where(g => g.GroupDebutDate.Contains(debutDate));
+            }
+
+            var viewModel = new GroupVM
+            {
+                Groups = groups.ToList()
             };
 
-            return View(groupVM);
+            return View(viewModel);
         }
+
 
         [HttpGet]
         public IActionResult AddNewGroup()
@@ -44,5 +62,6 @@ namespace ArtistsWiki.Controllers
 
             return View(newGroup);
         }
+
     }
 }

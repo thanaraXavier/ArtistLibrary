@@ -13,18 +13,35 @@ namespace ArtistsWiki.Controllers
             _db = db;
         }
 
+
         [HttpGet]
-        public IActionResult GetAllSolists()
+        public IActionResult GetAllSolists(string name = null, string genre = null, string debutDate = null)
         {
-            var solists = _db.Solists.ToList();
+            var solists = _db.Solists.AsQueryable(); // Não converta a lista aqui
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                solists = solists.Where(s => s.SolistName.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(genre))
+            {
+                solists = solists.Where(s => s.SolistMusicGenre.Contains(genre));
+            }
+
+            if (!string.IsNullOrEmpty(debutDate))
+            {
+                solists = solists.Where(s => s.SolistDebutDate.Contains(debutDate));
+            }
 
             var solistVM = new SolistVM()
             {
-                Solists = solists,
+                Solists = solists.ToList(), // Converte para lista somente após aplicar os filtros
             };
 
             return View(solistVM);
         }
+
 
         [HttpGet]
         public IActionResult AddNewSolist()
@@ -44,5 +61,6 @@ namespace ArtistsWiki.Controllers
 
             return View(newSolist);
         }
+
     }
 }
