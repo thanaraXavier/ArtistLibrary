@@ -4,6 +4,7 @@ using ArtistLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtistLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240924180855_addGroupDetailsToDb")]
+    partial class addGroupDetailsToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,7 @@ namespace ArtistLibrary.DataAccess.Migrations
 
                     b.HasIndex("SolistId");
 
-                    b.ToTable("Albums", (string)null);
+                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.Group", b =>
@@ -86,7 +89,7 @@ namespace ArtistLibrary.DataAccess.Migrations
 
                     b.HasKey("GroupId");
 
-                    b.ToTable("Groups", (string)null);
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.GroupDetails", b =>
@@ -132,7 +135,7 @@ namespace ArtistLibrary.DataAccess.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("GroupDetails", (string)null);
+                    b.ToTable("GroupDetails");
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.Solist", b =>
@@ -161,7 +164,7 @@ namespace ArtistLibrary.DataAccess.Migrations
 
                     b.HasKey("SolistId");
 
-                    b.ToTable("Solists", (string)null);
+                    b.ToTable("Solists");
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.SolistDetails", b =>
@@ -198,7 +201,7 @@ namespace ArtistLibrary.DataAccess.Migrations
 
                     b.HasIndex("SolistId");
 
-                    b.ToTable("SolistDetails", (string)null);
+                    b.ToTable("SolistDetails");
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.Album", b =>

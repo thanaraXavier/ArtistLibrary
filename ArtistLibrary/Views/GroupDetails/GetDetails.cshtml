@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ArtistLibrary.Models.Models.GroupDetails>
+@{
+    ViewBag.Title = "Detalhes do Grupo";
+    int groupId = ViewBag.GroupId;
+}
+
+<h2>Detalhes do Grupo</h2>
+
+@if (!Model.Any())
+{
+    <p>Nenhum membro encontrado para este grupo.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome Artístico</th>
+                <th>Nome Real</th>
+                <th>Aniversário</th>
+                <th>Nacionalidade</th>
+                <th>Posição</th>
+                <th>Foto</th>
+                <th>Instagram</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td>@member.MemberStageName</td>
+                    <td>@member.MemberRealName</td>
+                    <td>@member.MemberAnniversary</td> <!-- Use como string -->
+                    <td>@member.MemberNationality</td>
+                    <td>@member.MemberPosition</td>
+                    <td>
+                        <img src="@member.MemberPhoto" alt="Foto de @member.MemberStageName" style="width: 100px; height: auto;" />
+                    </td>
+                    <td><a href="https://instagram.com/@member.MemberInstagram" target="_blank">@member.MemberInstagram</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a class="btn btn-primary" asp-controller="GroupDetails" asp-action="AddGroupDetails" asp-route-groupId="@groupId">Adicionar Novo Membro</a>
