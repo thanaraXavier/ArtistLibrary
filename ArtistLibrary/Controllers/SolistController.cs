@@ -13,7 +13,6 @@ namespace ArtistLibrary.Controllers
             _db = db;
         }
 
-
         [HttpGet]
         public IActionResult GetAllSolists(string name = null, string genre = null, string debutDate = null)
         {
@@ -42,7 +41,6 @@ namespace ArtistLibrary.Controllers
             return View(solistVM);
         }
 
-
         [HttpGet]
         public IActionResult AddNewSolist()
         {
@@ -61,6 +59,5 @@ namespace ArtistLibrary.Controllers
 
             return View(newSolist);
         }
-
     }
 }

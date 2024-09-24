@@ -201,14 +201,16 @@
     <div class="artist-container">
         @foreach (var solist in Model.Solists)
         {
-            <div class="artist-card">
-                <img src="@solist.SolistPhoto" alt="Photo of @solist.SolistName" />
-                <div class="info">
-                    <div class="name">@solist.SolistName</div>
-                    <div class="debut-date">Debut Date: @solist.SolistDebutDate</div>
-                    <div class="genre">Genre: @solist.SolistMusicGenre</div>
+            <a href="@Url.Action("GetDetails", "SolistDetails", new { solistId = solist.SolistId })" style="text-decoration: none; color: inherit;">
+                <div class="artist-card">
+                    <img src="@solist.SolistPhoto" alt="Photo of @solist.SolistName" />
+                    <div class="info">
+                        <div class="name">@solist.SolistName</div>
+                        <div class="debut-date">Debut Date: @solist.SolistDebutDate</div>
+                        <div class="genre">Genre: @solist.SolistMusicGenre</div>
+                    </div>
                 </div>
-            </div>
+            </a>
         }
     </div>
 
