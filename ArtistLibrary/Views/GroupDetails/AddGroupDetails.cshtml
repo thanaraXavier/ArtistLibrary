@@ -1,0 +1,55 @@
+﻿@model ArtistLibrary.Models.Models.DTOs.GroupDetailsDTO
+@{
+    ViewBag.Title = "Adicionar Membro ao Grupo";
+}
+
+<h2>Adicionar Membro ao Grupo</h2>
+
+<form asp-action="AddGroupDetails" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="GroupId" />
+
+    <div class="form-group">
+        <label asp-for="MemberStageName"></label>
+        <input asp-for="MemberStageName" class="form-control" required />
+        <span asp-validation-for="MemberStageName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberRealName"></label>
+        <input asp-for="MemberRealName" class="form-control" required />
+        <span asp-validation-for="MemberRealName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberAnniversary"></label>
+        <input asp-for="MemberAnniversary" class="form-control" placeholder="dd/mm/aaaa" required /> <!-- Mudado para um campo de texto -->
+        <span asp-validation-for="MemberAnniversary" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberNationality"></label>
+        <input asp-for="MemberNationality" class="form-control" required />
+        <span asp-validation-for="MemberNationality" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberPosition"></label>
+        <input asp-for="MemberPosition" class="form-control" required />
+        <span asp-validation-for="MemberPosition" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberPhoto"></label>
+        <input asp-for="MemberPhoto" class="form-control" placeholder="Cole aqui o link do Imgur" required /> <!-- Mudado para um campo de texto -->
+        <span asp-validation-for="MemberPhoto" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MemberInstagram"></label>
+        <input asp-for="MemberInstagram" class="form-control" />
+        <span asp-validation-for="MemberInstagram" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Adicionar Membro</button>
+    <a asp-action="GetDetails" asp-route-groupId="@Model.GroupId" class="btn btn-secondary">Cancelar</a>
+</form>

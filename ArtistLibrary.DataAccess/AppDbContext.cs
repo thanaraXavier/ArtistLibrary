@@ -13,5 +13,6 @@ namespace ArtistLibrary.DataAccess
         public DbSet<Group> Groups { get; set; }
         public DbSet<Album> Albums { get; set; }
         public DbSet<SolistDetails> SolistDetails { get; set; }
+        public DbSet<GroupDetails> GroupDetails { get; set; }
     }
 }
