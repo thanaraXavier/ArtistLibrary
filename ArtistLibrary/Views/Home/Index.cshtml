@@ -2,7 +2,6 @@
     ViewData["Title"] = "Artist Library";
 }
 
-<!-- Estilos CSS personalizados -->
 <style>
     body {
         display: flex;
@@ -42,7 +41,7 @@
         font-family: Arial, sans-serif; /* Fonte dos botões */
         font-weight: normal; /* Fonte padrão */
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, transform 0.3s ease; /* Adiciona transição para transform */
         border-radius: 5px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         text-decoration: none;
@@ -51,6 +50,7 @@
 
         .btn:hover {
             background-color: #555;
+            transform: translateY(-3px); /* Leve elevação ao passar o mouse */
         }
 
     .video-container {

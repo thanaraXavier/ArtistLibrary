@@ -116,7 +116,13 @@
             width: 200px;
             text-align: center;
             color: inherit;
+            transition: transform 0.3s; /* Adiciona transição suave */
         }
+
+            .group-card:hover {
+                transform: translateY(-5px); /* Levanta o cartão levemente ao passar o mouse */
+            }
+
 
             .group-card img {
                 width: 100%;
@@ -148,7 +154,7 @@
         }
 
             .add-btn:hover {
-                background-color: #444;
+                background-color: #ff6a47;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             }
 
@@ -185,6 +191,8 @@
                 .filter-form button:hover {
                     background-color: #ff6a47;
                 }
+
+        
     </style>
 </head>
 <body>
@@ -192,7 +200,7 @@
         <!-- Aumenta a distância abaixo da barra -->
         <a href="@Url.Action("Index", "Home")">Home</a>
         <a href="@Url.Action("GetAllSolists", "Solists")">Solists</a>
-        <a href="@Url.Action("GetAllAlbums", "Albums")">Albums</a>
+        <a href="@Url.Action("GetAllAlbums", "Album")">Albums</a>
     </div>
 
     <h1 style="margin-top: 20px;">@ViewData["Title"]</h1>
