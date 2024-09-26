@@ -4,47 +4,137 @@
     ViewData["Title"] = "Solist Details";
 }
 
-<h2>Details of @Model?.Solist?.SolistName</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-@if (Model == null)
-{
-    <p>No details available for this solist.</p>
-    <!-- Botão para adicionar detalhes -->
-    <a href="@Url.Action("AddSolistDetails", "SolistDetails", new { solistId = ViewBag.SolistId })" class="btn btn-primary">
-        Add Details
-    </a>
-}
-else
-{
-    <div>
-        <h4>Solist Details</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">Real Name</dt>
-            <dd class="col-sm-10">@Model.SolistRealName</dd>
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
 
-            <dt class="col-sm-2">Anniversary</dt>
-            <dd class="col-sm-10">@Model.SolistAnniversary</dd>
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
 
-            <dt class="col-sm-2">Nationality</dt>
-            <dd class="col-sm-10">@Model.SolistNationality</dd>
+            .btn-primary:hover {
+                background-color: #444;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
 
-            <dt class="col-sm-2">Instagram</dt>
-            <dd class="col-sm-10">
-                @if (!string.IsNullOrEmpty(Model.SolistInstagram))
-                {
-                    <a href="https://www.instagram.com/@Model.SolistInstagram" target="_blank">@Model.SolistInstagram</a>
-                }
-                else
-                {
-                    <p>N/A</p>
-                }
-            </dd>
+        .details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            max-width: 600px;
+            margin: 0 auto; /* Center the container */
+            background: #444;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
 
-            <dt class="col-sm-2">Photo</dt>
-            <dd class="col-sm-10">
-                <img src="@Model.SolistPhoto" alt="@Model.SolistRealName's Photo" width="150" height="150" />
-            </dd>
-        </dl>
-    </div>
-}
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Two columns: labels and values */
+            gap: 15px; /* Space between items */
+            width: 100%;
+            text-align: left;
+        }
+
+        dt {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem; /* Larger for better visibility */
+        }
+
+        dd {
+            margin-left: 0;
+            margin-bottom: 10px;
+            font-size: 1rem; /* Consistent font size */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px; /* Space above the image */
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Solist Details</h2>
+
+    @if (Model == null)
+    {
+        <p>No details available for this solist.</p>
+        <!-- Button to add details -->
+        <a href="@Url.Action("AddSolistDetails", "SolistDetails", new { solistId = ViewBag.SolistId })" class="btn-primary">
+            Add Details
+        </a>
+    }
+    else
+    {
+        <div class="details-container">
+            <hr />
+            <dl class="details-grid">
+                <dt>Real Name:</dt>
+                <dd>@Model.SolistRealName</dd>
+
+                <dt>Anniversary:</dt>
+                <dd>@Model.SolistAnniversary</dd>
+
+                <dt>Nationality:</dt>
+                <dd>@Model.SolistNationality</dd>
+
+                <dt>Instagram:</dt>
+                <dd>
+                    @if (!string.IsNullOrEmpty(Model.SolistInstagram))
+                    {
+                        <a href="https://www.instagram.com/@Model.SolistInstagram" target="_blank">@Model.SolistInstagram</a>
+                    }
+                    else
+                    {
+                        <p>N/A</p>
+                    }
+                </dd>
+
+                <dt>Photo:</dt>
+                <dd>
+                    <img src="@Model.SolistPhoto" alt="@Model.SolistRealName's Photo" />
+                </dd>
+            </dl>
+        </div>
+    }
+</body>
+</html>

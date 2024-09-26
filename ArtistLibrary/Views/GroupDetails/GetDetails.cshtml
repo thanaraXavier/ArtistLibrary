@@ -1,46 +1,148 @@
 ﻿@model IEnumerable<ArtistLibrary.Models.Models.GroupDetails>
+
 @{
-    ViewBag.Title = "Detalhes do Grupo";
+    ViewBag.Title = "Group Details";
     int groupId = ViewBag.GroupId;
 }
 
-<h2>Detalhes do Grupo</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
 
-@if (!Model.Any())
-{
-    <p>Nenhum membro encontrado para este grupo.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome Artístico</th>
-                <th>Nome Real</th>
-                <th>Aniversário</th>
-                <th>Nacionalidade</th>
-                <th>Posição</th>
-                <th>Foto</th>
-                <th>Instagram</th>
-            </tr>
-        </thead>
-        <tbody>
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+            .btn-primary:hover {
+                background-color: #444;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+        .details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            max-width: 600px;
+            margin: 0 auto; /* Center the container */
+            background: #444;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Duas colunas: rótulos e valores */
+            gap: 10px; /* Espaço entre os itens */
+            width: 100%;
+            text-align: left;
+        }
+
+        dt {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1rem; /* Tamanho reduzido para os rótulos */
+        }
+
+        dd {
+            margin-left: 0;
+            margin-bottom: 10px;
+            font-size: 0.9rem; /* Tamanho reduzido para os valores */
+        }
+
+        img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 10px; /* Espaço acima da imagem */
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>@ViewBag.Title</h2>
+
+    @if (!Model.Any())
+    {
+        <p>No details found for this group.</p>
+    }
+    else
+    {
+        <div class="details-container">
             @foreach (var member in Model)
             {
-                <tr>
-                    <td>@member.MemberStageName</td>
-                    <td>@member.MemberRealName</td>
-                    <td>@member.MemberAnniversary</td> <!-- Use como string -->
-                    <td>@member.MemberNationality</td>
-                    <td>@member.MemberPosition</td>
-                    <td>
-                        <img src="@member.MemberPhoto" alt="Foto de @member.MemberStageName" style="width: 100px; height: auto;" />
-                    </td>
-                    <td><a href="https://instagram.com/@member.MemberInstagram" target="_blank">@member.MemberInstagram</a></td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                <hr />
+                <dl class="details-grid">
+                    <dt>Stage Name:</dt>
+                    <dd>@member.MemberStageName</dd>
 
-<a class="btn btn-primary" asp-controller="GroupDetails" asp-action="AddGroupDetails" asp-route-groupId="@groupId">Adicionar Novo Membro</a>
+                    <dt>Real Name:</dt>
+                    <dd>@member.MemberRealName</dd>
+
+                    <dt>Anniversary:</dt>
+                    <dd>@member.MemberAnniversary</dd>
+
+                    <dt>Nationality:</dt>
+                    <dd>@member.MemberNationality</dd>
+
+                    <dt>Position:</dt>
+                    <dd>@member.MemberPosition</dd>
+
+                    <dt>Photo:</dt>
+                    <dd>
+                        <img src="@member.MemberPhoto" alt="Photo of @member.MemberStageName" />
+                    </dd>
+
+                    <dt>Instagram:</dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(member.MemberInstagram))
+                        {
+                            <a href="https://instagram.com/@member.MemberInstagram" target="_blank">@member.MemberInstagram</a>
+                        }
+                        else
+                        {
+                            <p>N/A</p>
+                        }
+                    </dd>
+                </dl>
+            }
+        </div>
+    }
+
+    <a class="btn-primary" asp-controller="GroupDetails" asp-action="AddGroupDetails" asp-route-groupId="@groupId">Add group member</a>
+</body>
+</html>
