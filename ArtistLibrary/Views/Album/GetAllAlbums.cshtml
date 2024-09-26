@@ -1,122 +1,271 @@
-﻿@model ArtistLibrary.Models.Models.ViewModel.AlbumVM
+﻿ @model ArtistLibrary.Models.Models.ViewModel.AlbumVM
 
 @{
-    ViewData["Title"] = "Todos os Álbuns";
+    ViewData["Title"] = "All Albums";
 }
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <style>
         body {
-            background-color: #f0f8ff;
             font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            text-align: center;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 2rem;
-            color: #333;
-            margin-top: 2rem;
-            text-shadow: 1px 1px #ccc;
-            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
         }
 
-        .table {
+        .filter-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
             width: 100%;
-            margin: 2rem auto;
-            border-collapse: collapse;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
         }
 
-            .table th, .table td {
-                padding: 0.75rem;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .table th {
-                background-color: #f4f4f4;
-            }
-
-            .table img {
-                width: 100px; /* Ajuste o tamanho da imagem conforme necessário */
-                height: auto;
-                border-radius: 10px;
-            }
-
-        .btn {
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 20px;
-            background-color: #ff7e5f;
+        .modal-content {
+            background-color: #444;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
             color: white;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: background-color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-            .btn:hover {
-                background-color: #ee4466;
+        .close {
+            color: white;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #ff7e5f;
+                text-decoration: none;
+                cursor: pointer;
             }
 
-        .alert {
-            margin: 2rem auto;
-            text-align: center;
-            padding: 1rem;
-            background-color: #e7f3fe;
-            color: #31708f;
-            border: 1px solid #bcdff1;
-            border-radius: 5px;
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 5px; /* Diminui a altura da barra */
+            color: white;
+            border-radius: 10px; /* Arredonda as pontas da barra */
+            width: 50%; /* Define a largura da barra de navegação */
+            margin: 20px auto 0; /* Centraliza a barra horizontalmente e adiciona espaço acima dela */
         }
+
+            .navbar a {
+                color: white; /* Define a cor do texto */
+                text-decoration: none; /* Remove o sublinhado */
+                padding: 10px 15px; /* Diminui o padding dos links */
+                transition: background-color 0.3s;
+                font-weight: normal; /* Pode deixar a fonte como normal para não destacar como link */
+            }
+
+                .navbar a:hover {
+                    background-color: transparent; /* Remove a cor de fundo ao passar o mouse */
+                    color: #ff7e5f; /* Altera a cor do texto ao passar o mouse */
+                }
+
+
+        .artist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px; /* Adiciona espaço entre a barra de navegação e os cartões */
+        }
+
+
+        .artist-card {
+            background: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            width: 200px;
+            text-align: center;
+            color: inherit;
+        }
+
+            .artist-card img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+
+            .artist-card .info {
+                padding: 10px;
+            }
+
+            .artist-card .name {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .artist-card .release-date,
+            .artist-card .artist-name {
+                color: #ccc;
+            }
+
+        .add-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 8px 16px;
+            border-radius: 25px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+            .add-btn:hover {
+                background-color: #444;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+        .filter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+            .filter-form label {
+                margin-bottom: 5px;
+                font-size: 1rem;
+            }
+
+            .filter-form input {
+                padding: 8px;
+                font-size: 1rem;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .filter-form button {
+                padding: 10px 15px;
+                font-size: 1rem;
+                background-color: #ff7e5f;
+                border: none;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .filter-form button:hover {
+                    background-color: #ff6a47;
+                }
     </style>
 </head>
 <body>
-    <h1>@ViewData["Title"]</h1>
-
-    <div class="mb-3 text-center">
-        <a href="@Url.Action("AddNewAlbum", "Album")" class="btn">Adicionar Novo Álbum</a>
+    <div class="navbar" style="margin-bottom: 40px;">
+        <!-- Aumenta a distância abaixo da barra -->
+        <a href="@Url.Action("Index", "Home")">Home</a>
+        <a href="@Url.Action("GetAllSolists", "Solists")">Solists</a>
+        <a href="@Url.Action("GetAllGroups", "Groups")">Groups</a>
     </div>
 
-    @if (Model.Albums != null && Model.Albums.Any())
+    <h1 style="margin-top: 20px;">@ViewData["Title"]</h1>
+
+    <span class="filter-icon" id="filterIcon">
+        <img src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png" style="width: 30px; height: 30px;" alt="Filter Icon">
+    </span>
+
+
+
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 style="margin-bottom: 25px;">Type what you want to filter:</h3>
+            <form method="get" asp-action="GetAllAlbums" class="filter-form">
+                <input type="text" id="albumName" name="albumName" placeholder="Enter album name:" />
+                <input type="text" id="artist" name="artist" placeholder="Enter artist name:" />
+                <input type="text" id="releaseDate" name="releaseDate" placeholder="Release date (use /):" />
+
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.Albums.Count == 0)
     {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nome do Álbum</th>
-                    <th>Artista</th>
-                    <th>Imagem do Álbum</th>
-                    <th>Data de Lançamento</th>
-                    <th>Tracklist</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Albums.Count; i++)
-                {
-                    var album = Model.Albums[i];
-                    <tr>
-                        <td>@album.AlbumName</td>
-                        <td>@Model.ArtistNames[i]</td>
-                        <td>
-                            <img src="@album.AlbumCover" alt="Capa do Álbum @album.AlbumName" />
-                        </td>
-                        <td>@album.AlbumRelease.ToShortDateString()</td>
-                        <td>@album.AlbumTracklist</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <div class="alert">Nenhum álbum encontrado.</div>
+        <p>No albums found with the search criteria.</p>
     }
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="artist-container">
+        @foreach (var album in Model.Albums)
+        {
+            <div class="artist-card">
+                <img src="@album.AlbumCover" alt="Cover of @album.AlbumName" />
+                <div class="info">
+                    <div class="name">@album.AlbumName</div>
+                    <div class="release-date">Release Date: @album.AlbumRelease.ToString("d")</div>
+                    <div class="artist-name">Artist: @(Model.ArtistNames[Model.Albums.IndexOf(album)])</div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <a href="@Url.Action("AddNewAlbum", "Album")" class="add-btn">Add Album</a>
+
+    <script>
+        // Open the modal
+        document.getElementById('filterIcon').onclick = function () {
+            document.getElementById('filterModal').style.display = 'block';
+        }
+
+        // Close the modal
+        document.getElementById('closeModal').onclick = function () {
+            document.getElementById('filterModal').style.display = 'none';
+        }
+
+        // Close the modal if clicking outside of it
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('filterModal')) {
+                document.getElementById('filterModal').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
