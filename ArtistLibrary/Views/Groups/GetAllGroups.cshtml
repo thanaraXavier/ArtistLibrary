@@ -227,15 +227,17 @@
             <div class="group-card">
                 <a href="@Url.Action("GetDetails", "GroupDetails", new { groupId = group.GroupId })">
                     <img src="@group.GroupPhoto" alt="Photo of @group.GroupName" />
-                    <div class="info">
-                        <div class="name">@group.GroupName</div>
-                        <div class="debut-date">Debut Date: @group.GroupDebutDate</div>
-                        <div class="genre">Genre: @group.GroupMusicGenre</div>
-                    </div>
                 </a>
+                <div class="info">
+                    <div class="name">@group.GroupName</div>
+                    <div class="debut-date">Debut Date: @group.GroupDebutDate</div>
+                    <div class="genre">Genre: @group.GroupMusicGenre</div>
+                </div>
             </div>
         }
     </div>
+
+
 
     <a href="@Url.Action("AddNewGroup", "Groups")" class="add-btn">Add Group</a>
 
