@@ -1,16 +1,88 @@
 ﻿@model ArtistLibrary.Models.DTOs.AlbumDTO
+@{
+    ViewData["Title"] = "Add New Group";
+}
 
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Adicionar Novo Álbum</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-family: Georgia, serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left; /* Align labels to the left for better appearance */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+        }
+
+        .text-danger {
+            color: red;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #444;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #444;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
-        <h1>Adicionar Novo Álbum</h1>
+        <h1>Add New Album</h1>
 
         @if (!ViewData.ModelState.IsValid)
         {
@@ -26,59 +98,59 @@
 
         <form asp-action="AddNewAlbum" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <label for="AlbumName" class="form-label">Nome do Álbum</label>
+                <label for="AlbumName" class="form-label">Album Name</label>
                 <input type="text" class="form-control" id="AlbumName" name="AlbumName" required />
             </div>
 
             <div class="mb-3">
-                <label for="AlbumRelease" class="form-label">Data de Lançamento</label>
+                <label for="AlbumRelease" class="form-label">Release Date</label>
                 <input type="date" class="form-control" id="AlbumRelease" name="AlbumRelease" required />
             </div>
 
             <div class="mb-3">
-                <label for="AlbumTracklist" class="form-label">Tracklist (separe as faixas com vírgulas)</label>
+                <label for="AlbumTracklist" class="form-label">Tracklist (separate tracks with commas)</label>
                 <textarea class="form-control" id="AlbumTracklist" name="AlbumTracklist" rows="3" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="AlbumCover" class="form-label">Capa do Álbum (URL)</label>
+                <label for="AlbumCover" class="form-label">Album Cover (URL)</label>
                 <input type="text" class="form-control" id="AlbumCover" name="AlbumCover" required />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Escolha o tipo:</label>
+                <label class="form-label">Select Type:</label>
                 <div>
                     <input type="radio" id="solist" name="type" value="solist" checked />
-                    <label for="solist">Solista</label>
+                    <label for="solist">Solist</label>
 
                     <input type="radio" id="group" name="type" value="group" />
-                    <label for="group">Grupo</label>
+                    <label for="group">Group</label>
                 </div>
             </div>
 
             <div id="solistSection" class="mb-3">
-                <label for="SolistId" class="form-label">Solista</label>
+                <label for="SolistId" class="form-label">Solist</label>
                 <select id="SolistId" name="SolistId" class="form-select">
-                    <option value="">Selecione um solista</option>
+                    <option value="">Select a solist</option>
                     @foreach (var solist in ViewBag.Solists)
                     {
-                        <option value="@solist.SolistId">@solist.SolistName</option> <!-- Ajuste aqui -->
+                        <option value="@solist.SolistId">@solist.SolistName</option>
                     }
                 </select>
             </div>
 
             <div id="groupSection" class="mb-3" style="display: none;">
-                <label for="GroupId" class="form-label">Grupo</label>
+                <label for="GroupId" class="form-label">Group</label>
                 <select id="GroupId" name="GroupId" class="form-select">
-                    <option value="">Selecione um grupo</option>
+                    <option value="">Select a group</option>
                     @foreach (var group in ViewBag.Groups)
                     {
-                        <option value="@group.GroupId">@group.GroupName</option> <!-- Ajuste aqui -->
+                        <option value="@group.GroupId">@group.GroupName</option>
                     }
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Adicionar Álbum</button>
+            <button type="submit" class="btn btn-primary">Add Album</button>
         </form>
     </div>
 
@@ -88,11 +160,11 @@
                 if ($(this).val() === 'solist') {
                     $('#solistSection').show();
                     $('#groupSection').hide();
-                    $('#GroupId').val(''); // Limpa a seleção do grupo
+                    $('#GroupId').val(''); // Clear group selection
                 } else {
                     $('#groupSection').show();
                     $('#solistSection').hide();
-                    $('#SolistId').val(''); // Limpa a seleção do solista
+                    $('#SolistId').val(''); // Clear solist selection
                 }
             });
         });

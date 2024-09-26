@@ -79,6 +79,30 @@
                 cursor: pointer;
             }
 
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 5px; /* Diminui a altura da barra */
+            color: white;
+            border-radius: 10px; /* Arredonda as pontas da barra */
+            width: 50%; /* Define a largura da barra de navegação */
+            margin: 20px auto 0; /* Centraliza a barra horizontalmente e adiciona espaço acima dela */
+        }
+
+            .navbar a {
+                color: white; /* Define a cor do texto */
+                text-decoration: none; /* Remove o sublinhado */
+                padding: 10px 15px; /* Diminui o padding dos links */
+                transition: background-color 0.3s;
+                font-weight: normal; /* Pode deixar a fonte como normal para não destacar como link */
+            }
+
+                .navbar a:hover {
+                    background-color: transparent; /* Remove a cor de fundo ao passar o mouse */
+                    color: #ff7e5f; /* Altera a cor do texto ao passar o mouse */
+                }
+
         .artist-container {
             display: flex;
             flex-wrap: wrap;
@@ -171,7 +195,14 @@
     </style>
 </head>
 <body>
-    <h1>@ViewData["Title"]</h1>
+    <div class="navbar" style="margin-bottom: 40px;">
+        <!-- Aumenta a distância abaixo da barra -->
+        <a href="@Url.Action("Index", "Home")">Home</a>
+        <a href="@Url.Action("GetAllGroups", "Groups")">Groups</a>
+        <a href="@Url.Action("GetAllAlbums", "Albums")">Albums</a>
+    </div>
+
+    <h1 style="margin-top: 20px;">@ViewData["Title"]</h1>
 
     <span class="filter-icon" id="filterIcon">
         <img src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png" style="width: 30px; height: 30px;" alt="Filter Icon">

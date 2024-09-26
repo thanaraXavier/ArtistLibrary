@@ -4,6 +4,7 @@ using ArtistLibrary.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArtistLibrary.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240924195316_addDetails")]
+    partial class addDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,20 +135,6 @@ namespace ArtistLibrary.DataAccess.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("GroupDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            MemberId = 1,
-                            GroupId = 7,
-                            MemberAnniversary = "02/07/1992",
-                            MemberInstagram = "felpcacife",
-                            MemberNationality = "Brazilian",
-                            MemberPhoto = "https://i.imgur.com/LDapGbF.jpeg",
-                            MemberPosition = "Vocalist",
-                            MemberRealName = "Felipe Laurindo de Carvalho",
-                            MemberStageName = "Felp22"
-                        });
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.Solist", b =>
@@ -212,18 +201,6 @@ namespace ArtistLibrary.DataAccess.Migrations
                     b.HasIndex("SolistId");
 
                     b.ToTable("SolistDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            SolistDetailId = 1,
-                            SolistAnniversary = "21/06/1985",
-                            SolistId = 2,
-                            SolistInstagram = "honeymoon",
-                            SolistNationality = "American",
-                            SolistPhoto = "https://i.imgur.com/SLwB5GO.jpeg",
-                            SolistRealName = "Elizabeth Woolridge Grant"
-                        });
                 });
 
             modelBuilder.Entity("ArtistLibrary.Models.Models.Album", b =>
