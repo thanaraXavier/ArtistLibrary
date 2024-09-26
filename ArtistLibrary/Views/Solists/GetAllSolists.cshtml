@@ -118,7 +118,13 @@
             width: 200px;
             text-align: center;
             color: inherit;
+            transition: transform 0.3s; /* Adiciona transição suave */
         }
+
+            .artist-card:hover {
+                transform: translateY(-5px); /* Eleva o cartão levemente */
+            }
+
 
             .artist-card img {
                 width: 100%;
@@ -199,7 +205,7 @@
         <!-- Aumenta a distância abaixo da barra -->
         <a href="@Url.Action("Index", "Home")">Home</a>
         <a href="@Url.Action("GetAllGroups", "Groups")">Groups</a>
-        <a href="@Url.Action("GetAllAlbums", "Albums")">Albums</a>
+        <a href="@Url.Action("GetAllAlbums", "Album")">Albums</a>
     </div>
 
     <h1 style="margin-top: 20px;">@ViewData["Title"]</h1>

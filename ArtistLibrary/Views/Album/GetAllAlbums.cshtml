@@ -1,4 +1,4 @@
-﻿ @model ArtistLibrary.Models.Models.ViewModel.AlbumVM
+﻿@model ArtistLibrary.Models.Models.ViewModel.AlbumVM
 
 @{
     ViewData["Title"] = "All Albums";
@@ -28,100 +28,51 @@
             font-weight: bold;
         }
 
-        .filter-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background-color: #444;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 500px;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .close {
-            color: white;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-            .close:hover,
-            .close:focus {
-                color: #ff7e5f;
-                text-decoration: none;
-                cursor: pointer;
-            }
-
         .navbar {
             display: flex;
             justify-content: space-around;
             background-color: #333;
-            padding: 5px; /* Diminui a altura da barra */
+            padding: 5px;
             color: white;
-            border-radius: 10px; /* Arredonda as pontas da barra */
-            width: 50%; /* Define a largura da barra de navegação */
-            margin: 20px auto 0; /* Centraliza a barra horizontalmente e adiciona espaço acima dela */
+            border-radius: 10px;
+            width: 50%;
+            margin: 20px auto;
         }
 
             .navbar a {
-                color: white; /* Define a cor do texto */
-                text-decoration: none; /* Remove o sublinhado */
-                padding: 10px 15px; /* Diminui o padding dos links */
+                color: white;
+                text-decoration: none;
+                padding: 10px 15px;
                 transition: background-color 0.3s;
-                font-weight: normal; /* Pode deixar a fonte como normal para não destacar como link */
             }
 
                 .navbar a:hover {
-                    background-color: transparent; /* Remove a cor de fundo ao passar o mouse */
-                    color: #ff7e5f; /* Altera a cor do texto ao passar o mouse */
+                    background-color: transparent;
+                    color: #ff7e5f;
                 }
-
 
         .artist-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-top: 40px; /* Adiciona espaço entre a barra de navegação e os cartões */
+            margin-top: 40px;
         }
-
 
         .artist-card {
-            background: #333;
+            background: #444;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             width: 200px;
-            text-align: center;
+            text-align: left;
             color: inherit;
+            transition: transform 0.3s;
         }
+
+            .artist-card:hover {
+                transform: translateY(-5px);
+            }
 
             .artist-card img {
                 width: 100%;
@@ -129,27 +80,52 @@
                 object-fit: cover;
             }
 
+        .info {
+            padding: 10px;
+        }
 
-            .artist-card .info {
-                padding: 10px;
-            }
+        .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
 
-            .artist-card .name {
-                font-weight: bold;
-                margin-bottom: 5px;
-            }
+        .release-date,
+        .artist-name {
+            color: #ccc;
+        }
 
-            .artist-card .release-date,
-            .artist-card .artist-name {
-                color: #ccc;
+        .track-list {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #f1f1f1;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            display: none; /* Oculto por padrão */
+        }
+
+        .track-toggle {
+            background: #ff7e5f;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+            .track-toggle:hover {
+                background: #ff6a47;
             }
 
         .add-btn {
             display: inline-block;
             margin-top: 40px;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 25px;
-            background-color: #333;
+            background-color:  #333;
             color: white;
             font-size: 1rem;
             font-weight: bold;
@@ -158,75 +134,16 @@
             transition: background-color 0.3s, box-shadow 0.3s;
         }
 
-            .add-btn:hover {
-                background-color: #444;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            }
-
-        .filter-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-            .filter-form label {
-                margin-bottom: 5px;
-                font-size: 1rem;
-            }
-
-            .filter-form input {
-                padding: 8px;
-                font-size: 1rem;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-            }
-
-            .filter-form button {
-                padding: 10px 15px;
-                font-size: 1rem;
-                background-color: #ff7e5f;
-                border: none;
-                color: white;
-                cursor: pointer;
-                border-radius: 5px;
-                transition: background-color 0.3s;
-            }
-
-                .filter-form button:hover {
-                    background-color: #ff6a47;
-                }
     </style>
 </head>
 <body>
-    <div class="navbar" style="margin-bottom: 40px;">
-        <!-- Aumenta a distância abaixo da barra -->
+    <div class="navbar">
         <a href="@Url.Action("Index", "Home")">Home</a>
         <a href="@Url.Action("GetAllSolists", "Solists")">Solists</a>
         <a href="@Url.Action("GetAllGroups", "Groups")">Groups</a>
     </div>
 
-    <h1 style="margin-top: 20px;">@ViewData["Title"]</h1>
-
-    <span class="filter-icon" id="filterIcon">
-        <img src="https://cdn-icons-png.flaticon.com/128/2676/2676824.png" style="width: 30px; height: 30px;" alt="Filter Icon">
-    </span>
-
-
-
-    <div id="filterModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h3 style="margin-bottom: 25px;">Type what you want to filter:</h3>
-            <form method="get" asp-action="GetAllAlbums" class="filter-form">
-                <input type="text" id="albumName" name="albumName" placeholder="Enter album name:" />
-                <input type="text" id="artist" name="artist" placeholder="Enter artist name:" />
-                <input type="text" id="releaseDate" name="releaseDate" placeholder="Release date (use /):" />
-
-                <button type="submit">Filter</button>
-            </form>
-        </div>
-    </div>
+    <h1>@ViewData["Title"]</h1>
 
     @if (Model.Albums.Count == 0)
     {
@@ -242,6 +159,20 @@
                     <div class="name">@album.AlbumName</div>
                     <div class="release-date">Release Date: @album.AlbumRelease.ToString("d")</div>
                     <div class="artist-name">Artist: @(Model.ArtistNames[Model.Albums.IndexOf(album)])</div>
+                    <button class="track-toggle" onclick="toggleTracks(this)">Show Tracks</button>
+                    <div class="track-list">
+                        <strong>Tracks:</strong>
+                        <ul>
+                            @{
+                                // Supondo que as faixas sejam separadas por vírgulas em uma única string
+                                var tracks = album.AlbumTracklist.Split(','); // Altere o delimitador conforme necessário
+                            }
+                            @foreach (var track in tracks)
+                            {
+                                <li>@track.Trim()</li> <!-- Exibe cada faixa como um item de lista, removendo espaços -->
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
         }
@@ -250,20 +181,14 @@
     <a href="@Url.Action("AddNewAlbum", "Album")" class="add-btn">Add Album</a>
 
     <script>
-        // Open the modal
-        document.getElementById('filterIcon').onclick = function () {
-            document.getElementById('filterModal').style.display = 'block';
-        }
-
-        // Close the modal
-        document.getElementById('closeModal').onclick = function () {
-            document.getElementById('filterModal').style.display = 'none';
-        }
-
-        // Close the modal if clicking outside of it
-        window.onclick = function (event) {
-            if (event.target == document.getElementById('filterModal')) {
-                document.getElementById('filterModal').style.display = 'none';
+        function toggleTracks(button) {
+            var trackList = button.nextElementSibling;
+            if (trackList.style.display === "none" || trackList.style.display === "") {
+                trackList.style.display = "block"; // Mostra a lista
+                button.innerText = "Hide Tracks"; // Muda o texto do botão
+            } else {
+                trackList.style.display = "none"; // Oculta a lista
+                button.innerText = "Show Tracks"; // Muda o texto do botão
             }
         }
     </script>
